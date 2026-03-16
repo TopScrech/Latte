@@ -1,0 +1,33 @@
+{
+  "originHash" : "6ec4b755678efeacf8e6056d865aa03a8f42ee42bee79e2957b5f2016ed06631",
+  "pins" : [
+    {
+      "identity" : "autoupdate",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TopScrech/AutoUpdate",
+      "state" : {
+        "branch" : "main",
+        "revision" : "9002d6ac279bf85ede1c3427d9309cc70ecdc857"
+      }
+    },
+    {
+      "identity" : "launchatlogin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TopScrech/LaunchAtLogin",
+      "state" : {
+        "branch" : "main",
+        "revision" : "de46c95b812441c47eb2754c8bd10fc0ee2afa2e"
+      }
+    },
+    {
+      "identity" : "screchkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TopScrech/ScrechKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "98aa4363c5fe1e0617894a41baa9f297083fb5ac"
+      }
+    }
+  ],
+  "version" : 3
+}
