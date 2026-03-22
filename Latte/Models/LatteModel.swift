@@ -6,11 +6,9 @@ import OSLog
 @Observable
 final class LatteModel {
     enum ManualUpdateCheckResult: Equatable {
-        case upToDate
-        case updateAvailable
-        case failed
+        case upToDate, updateAvailable, failed
     }
-
+    
     private enum DefaultsKey {
         static let disablesAfterWake = "disablesAfterWake"
         static let allowsPrereleaseUpdates = "allowsPrereleaseUpdates"
@@ -331,12 +329,12 @@ final class LatteModel {
             Self.logger.error("Automatic update check failed: \(error.localizedDescription)")
         }
     }
-
+    
     private func configureLaunchAtLoginOnFirstLaunch() {
         let defaults = UserDefaults.standard
-
+        
         guard !defaults.bool(forKey: DefaultsKey.hasConfiguredLaunchAtLogin) else { return }
-
+        
         defaults.set(true, forKey: DefaultsKey.hasConfiguredLaunchAtLogin)
         launchesAtLogin = true
     }
