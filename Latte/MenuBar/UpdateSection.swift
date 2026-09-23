@@ -1,4 +1,4 @@
-import SwiftUI
+import ScrechKit
 
 struct UpdateSection: View {
     @Bindable var model: LatteModel
@@ -6,8 +6,9 @@ struct UpdateSection: View {
     
     var body: some View {
         Group {
-            Button("Check for updates", action: checkForUpdates)
+            AsyncButton("Check for updates", action: checkForUpdates)
                 .alert("Latte is up to date", isPresented: $isShowingUpToDateAlert) {
+                    
                 } message: {
                     Text("You already have the latest version installed.")
                 }
@@ -15,10 +16,10 @@ struct UpdateSection: View {
                 .disabled(model.isCheckingForUpdates || model.isInstallingPreparedUpdate)
             
             if let preparedUpdateTag = model.preparedUpdateTag {
-                Button("Install \(preparedUpdateTag)", systemImage: "square.and.arrow.down", action: installPreparedUpdate)
+                AsyncButton("Install \(preparedUpdateTag)", systemImage: "square.and.arrow.down", action: model.installPreparedUpdate)
                     .disabled(model.isCheckingForUpdates)
                 
-                Button("Later", systemImage: "clock.arrow.circlepath", action: dismissPreparedUpdate)
+                AsyncButton("Later", systemImage: "clock.arrow.circlepath", action: model.dismissPreparedUpdate)
                     .disabled(model.isInstallingPreparedUpdate)
                 
                 if let preparedUpdateReleaseURL = model.preparedUpdateReleaseURL {
@@ -28,25 +29,12 @@ struct UpdateSection: View {
         }
     }
     
-    private func checkForUpdates() {
-        Task {
-            let result = await model.checkForUpdatesNow()
-            guard result == .upToDate else { return }
-            await MainActor.run {
-                isShowingUpToDateAlert = true
-            }
-        }
-    }
-    
-    private func installPreparedUpdate() {
-        Task {
-            await model.installPreparedUpdate()
-        }
-    }
-    
-    private func dismissPreparedUpdate() {
-        Task {
-            await model.dismissPreparedUpdate()
+    private func checkForUpdates() async {
+        let result = await model.checkForUpdatesNow()
+        guard result == .upToDate else { return }
+        
+        await MainActor.run {
+            isShowingUpToDateAlert = true
         }
     }
 }
