@@ -13,6 +13,13 @@
   "packages": [
     {
       "kind": "remote",
+      "repository": "https://github.com/SimplyDanny/SwiftLintPlugins",
+      "version": {
+        "up-to-next-major-version": "0.65.1",
+      },
+    },
+    {
+      "kind": "remote",
       "repository": "https://github.com/TopScrech/ScrechKit",
       "version": {
         "up-to-next-major-version": "1.0.0",
@@ -32,6 +39,7 @@
     },
   ],
   "files": [
+    { "path": ".swiftlint.yml" },
     { "path": "README.md" },
     { "path": "AGENTS.md", "target-membership": [ "Latte/resources" ] },
     { "kind": "folder", "path": "Latte", "target-membership": [ "Latte" ] },
@@ -49,6 +57,9 @@
       "id": "F3BE70102F6763A0009AF580",
       "product": "Products/Latte.app",
       "product-type": "application",
+      "dependencies": [
+        { "kind": "package", "package": "SwiftLintPlugins", "product-name": "SwiftLintBuildToolPlugin", "product-type": "build-tool-plugin" },
+      ],
       "build-phases": [
         "compile-sources",
         "frameworks",
